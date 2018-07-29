@@ -1,33 +1,35 @@
 const express = require('express');
-const app = express();
 const cors = require('cors');
 const data = require('./api/cohorts');
 const port = parseInt(process.env.PORT || 8080);
-const cohorts = require('./cohorts');
 
-// 'use strict';
-
-// module.exports = require('./lib/express');
-
+const app = express();
 app.use(cors())
 
-app.get('/', (req, res, next) => {
-    res.send(JSON.stringify(cohorts))
+function findMatch(data, id) {
+    for (i = 0; i < data.length; i++) {
+        if (data[i].id == id) {
+            return data[i];
+        }
+    }
+    return null;
+}
+
+app.get('/', (req, res) => {
+    res.json({ data });
 })
 
-app.get('/4', req, res, next) => {
-    const person = findMatch(req.params.id, cohorts)
-    if (!person) {
-        res.status = 404
-        res.json({
+app.get('/:id', function (req, res) {
+    const cohort = findMatch(data, req.params.id);
+    if (!cohort) {
+        res.status(404).json({
             error: {
                 message: 'Error, ID does not exit!'
             }
         })
+    } else {
+        res.json({ data: cohort })
     }
-    res.json({ cohorts: person })
-}
-
-app.listen(port, () => {
-    console.log('listening here ', port)
 })
+
+app.listen(port, () => console.log(`Listening on http://localhost:${port}`))

@@ -4,7 +4,7 @@ const data = require('./api/cohorts');
 const port = parseInt(process.env.PORT || 8080);
 
 const app = express();
-app.use(cors())
+app.use(cors());
 
 function findMatch(data, id) {
     for (i = 0; i < data.length; i++) {
@@ -28,8 +28,8 @@ app.get('/:id', function (req, res) {
             }
         })
     } else {
-        res.json({ data: cohort })
+        res.json({ data: cohort });
     }
 })
 
-app.listen(port, () => console.log(`Listening on http://localhost:${port}`))
+app.listen(port, () => console.log(`Listening on http://localhost:${port}`));

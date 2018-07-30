@@ -24,7 +24,7 @@ app.get('/:id', function (req, res) {
     if (!cohort) {
         res.status(404).json({
             error: {
-                message: 'Error, ID does not exit!'
+                message: 'Error, ID does not exist!'
             }
         })
     } else {
